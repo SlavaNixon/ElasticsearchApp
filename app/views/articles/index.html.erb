@@ -2,6 +2,17 @@
 
 <h1>Articles</h1>
 
+  <hr>
+
+  <%= form_tag search_articles_path, method: 'get' do %>
+    <%= label_tag :query %>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag :search %>
+  <% end %>
+
+  <hr>
+
+
 <div id="articles">
   <% @articles.each do |article| %>
     <%= render article %>
