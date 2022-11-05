@@ -1,10 +1,8 @@
-<p style="color: green"><%= notice %></p>
+<h1>Статья</h1>
 
 <%= render @article %>
 
 <div>
-  <%= link_to "Edit this article", edit_article_path(@article) %> |
-  <%= link_to "Back to articles", articles_path %>
-
-  <%= button_to "Destroy this article", @article, method: :delete %>
+  <%= link_to "Редактировать", edit_article_path(@article), class: "btn btn-primary" %>
+  <%= link_to "Назад к статьям", articles_path, class: "btn btn-primary" %>
 </div>

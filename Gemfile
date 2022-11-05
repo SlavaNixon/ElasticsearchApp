@@ -70,6 +70,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+gem 'will_paginate', '~> 3.3'
 gem "mocha", group: "test"
 gem "rails-controller-testing", group: "test"
 gem "elasticsearch"

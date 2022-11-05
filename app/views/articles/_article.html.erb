@@ -1,17 +1,19 @@
-<div id="<%= dom_id article %>">
-  <p>
-    <strong>Title:</strong>
-    <%= article.title %>
-  </p>
+<p class="mb-1">
+  <strong>Ид:</strong>
+  <%= article.id %>
+</p>
 
-  <p>
-    <strong>Content:</strong>
-    <%= article.content %>
-  </p>
+<p class="mb-1">
+  <strong>Название:</strong>
+  <%= article.name %>
+</p>
 
-  <p>
-    <strong>Published on:</strong>
-    <%= article.published_on %>
-  </p>
+<p class="mb-1">
+  <strong>Описание:</strong>
+  <%= article.content %>
+</p>
 
-</div>
+<p class="mb-1">
+  <strong>Создано в:</strong>
+  <%= article.created_at.strftime('%H:%M:%S %d.%m.%Y') %>
+</p>

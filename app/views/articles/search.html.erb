@@ -1,0 +1,22 @@
+<h1>Результат поиска</h1>
+
+<hr>
+
+<% if @articles.present? %>
+  <div id="articles">
+    <% @articles.each do |article| %>
+      <div class="card mt-3">
+        <div class="card-body">
+          <%= render article %>
+          <p>
+            <%= link_to "Показать статью", article %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div>Статьи не найдены</div>
+<% end %>
+
+<%= link_to "Назад к статьям", root_path %>
