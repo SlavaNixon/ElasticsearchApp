@@ -1,7 +1,8 @@
 # Ruby on Rails and Elasticsearch: Example application
 
-Надо создать index в Elasticsearch после запуска Rails-приложения
+Надо запустить Elasticsearch и создать index после запуска Rails-приложения
 ```
+sudo systemctl start elasticsearch
 curl -X PUT 'http://localhost:9200/articles'
 ```
 
