@@ -70,3 +70,8 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+gem "mocha", group: "test"
+gem "rails-controller-testing", group: "test"
+gem "elasticsearch"
+gem "elasticsearch-model", git: "https://github.com/elasticsearch/elasticsearch-rails.git", branch: "main"
+gem "elasticsearch-rails", git: "https://github.com/elasticsearch/elasticsearch-rails.git", branch: "main"
