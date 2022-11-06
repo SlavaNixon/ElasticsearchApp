@@ -1,6 +1,7 @@
 # Ruby on Rails and Elasticsearch: Example application
 
 Пример работы Rails приложения с помощью базы Elasticsearch без использования ActiveRecord
+<br>
 Надо выполнить следующие команды
 ```
 sudo systemctl start elasticsearch
