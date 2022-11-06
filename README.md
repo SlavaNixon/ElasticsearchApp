@@ -1,9 +1,10 @@
 # Ruby on Rails and Elasticsearch: Example application
 
-Надо запустить Elasticsearch и создать index после запуска Rails-приложения
+Надо выполнить следующие команды
 ```
 sudo systemctl start elasticsearch
-curl -X PUT 'http://localhost:9200/articles'
+rails db:seed
+rails s
 ```
 
 This application is an example of integrating the Elasticsearch

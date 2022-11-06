@@ -3,6 +3,6 @@
 <%= render @article %>
 
 <div>
-  <%= link_to "Редактировать", edit_article_path(@article), class: "btn btn-primary" %>
+  <%= link_to "Редактировать", edit_article_path(@article.id), class: "btn btn-primary" %>
   <%= link_to "Назад к статьям", articles_path, class: "btn btn-primary" %>
 </div>

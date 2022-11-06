@@ -1,7 +1,8 @@
 puts "Deleting all articles..."
-Article.delete_all
 client = Elasticsearch::Client.new()
 client.indices.delete index: 'articles' if client.indices.exists?(index: 'articles')
 
 puts "Creating articles..."
-50.times{ |i| Article.create(name: "Name#{i}", author: "Author#{i}", content: "Content#{i}") }
+50.times do |id|
+  Article.new(id, "Name#{id}", "Author#{id}", "Content#{id}", "01.08.20#{id + 10}").create
+end

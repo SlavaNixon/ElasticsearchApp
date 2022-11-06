@@ -1,6 +1,6 @@
 <h1>Редактирование статьи</h1>
 
-<%= form_with(model: @article) do |form| %>
+<%= form_with(model: @article, method: :put, url: article_path(@article.id)) do |form| %>
   <div>
     <%= form.label :Описание, style: "display: block" %>
     <%= form.text_area :content %>
@@ -14,6 +14,6 @@
 <br>
 
 <div>
-  <%= link_to "Показать статью", @article %> |
+  <%= link_to "Показать статью", article_path(@article.id) %> |
   <%= link_to "Назад к статьям", articles_path %>
 </div>

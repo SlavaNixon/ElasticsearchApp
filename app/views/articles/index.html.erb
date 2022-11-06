@@ -12,9 +12,8 @@
 <%= link_to "Создать статью", new_article_path, class: "btn btn-primary mb-3" %>
 
 <div class="digg_pagination">
-    <%= will_paginate @articles, previous_label: "Назад", next_label: "Вперед" %>
+  <%= will_paginate @articles, previous_label: "Назад", next_label: "Вперед" %>
 </div>
-
 
 <div id="articles">
   <% @articles.each do |article| %>
@@ -22,13 +21,13 @@
       <div class="card-body">
         <%= render article %>
         <p>
-          <%= link_to "Показать статью", article %>
+          <%= link_to "Показать статью", article_path(article.id) %>
         </p>
       </div>
     </div>
   <% end %>
 </div>
 
-<div class="digg_pagination mt-3">
+<div class="digg_pagination">
   <%= will_paginate @articles, previous_label: "Назад", next_label: "Вперед" %>
 </div>

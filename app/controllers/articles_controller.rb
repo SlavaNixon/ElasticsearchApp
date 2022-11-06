@@ -1,47 +1,56 @@
 class ArticlesController < ApplicationController
-  before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :find_article, only: %i[show update edit]
 
   def index
-    @articles = Article.all.paginate(page: params[:page])
+    @articles = Articles.new.articles.paginate(page: params[:page])
   end
 
   def search
-    @articles = Article.search(search_params).records
+    @articles = Articles.search(search_params)
   end
 
   def show; end
 
-  def new
-    @article = Article.new
-  end
+  def new; end
 
-  def edit; end
+  def edit; p @article end
 
   def create
-    @article = Article.new(article_params_create)
-    if @article.save
-      redirect_to article_url(@article)
-    else
-      render :new, status: :unprocessable_entity
-    end
+    id = Articles.new.next_id
+    @article = Article.new(
+      id,
+      params[:name],
+      params[:author],
+      params[:content],
+      Time.now
+    ).create
+
+    # sleep before article create in elastic
+    # need move that in redis
+    sleep 1
+    redirect_to article_path(id)
   end
 
   def update
-    if @article.update(article_params_update)
-      redirect_to article_url(@article)
-    else
-      render :edit
-    end
+    @article.content = content_params[:content]
+    @article.update
+
+    # sleep before article create in elastic
+    # need move that in redis
+    sleep 1
+    redirect_to article_path(@article.id)
   end
 
   private
-  def set_article
-    @article = Article.find(params[:id])
+  def find_article
+    @article = Articles.new.find(params[:id])
+    raise ActionController::RoutingError.new('Not Found') if @article.nil?
+    @article
   end
-  def article_params_create
-    params.require(:article).permit(:name, :content, :author)
+  def article_params
+    params.require(:article)
   end
-  def article_params_update
+  def content_params
     params.require(:article).permit(:content)
   end
   def search_params

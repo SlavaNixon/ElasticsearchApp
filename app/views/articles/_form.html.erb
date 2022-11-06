@@ -1,7 +1,7 @@
-<%= form_with(model: article) do |form| %>
+<%= form_with(model: article, url: articles_path) do |form| %>
   <div>
     <%= form.label :Название, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, value: "" %>
   </div>
 
   <div>
