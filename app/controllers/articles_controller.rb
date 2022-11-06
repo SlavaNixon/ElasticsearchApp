@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
 
   def new; end
 
-  def edit; p @article end
+  def edit; end
 
   def create
     id = Articles.new.next_id
