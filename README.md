@@ -1,8 +1,10 @@
 # Ruby on Rails and Elasticsearch: Example application
 
+Пример работы Rails приложения с помощью базы Elasticsearch без использования ActiveRecord
 Надо выполнить следующие команды
 ```
 sudo systemctl start elasticsearch
+bundle install
 rails db:seed
 rails s
 ```
