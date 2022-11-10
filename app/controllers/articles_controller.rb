@@ -36,8 +36,7 @@ class ArticlesController < ApplicationController
     @article.content = content_params[:content]
     @article.update
 
-    # sleep before article create in elastic
-    # need move that in redis
+    # sleep before article creates in elastic
     sleep 1
     redirect_to article_path(@article.id)
   end
