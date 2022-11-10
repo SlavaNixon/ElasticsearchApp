@@ -5,13 +5,14 @@ require 'will_paginate/array'
 class Articles
   include ActiveModel::Model
   include Es
+  extend Es
 
   WillPaginate.per_page = 3
 
   attr_reader :articles
 
   def self.search(query)
-    parse_records(Es.client.search(index: INDEX_NAME, q: query)) if index_exists?
+    parse_records(client.search(index: INDEX_NAME, q: query)) if index_exists?
   end
 
   def self.parse_records(articles)
@@ -41,11 +42,5 @@ class Articles
     ids.max + 1
   rescue StandardError
     0
-  end
-
-  private
-
-  def index_exists?
-    client.indices.exists?(index: INDEX_NAME)
   end
 end

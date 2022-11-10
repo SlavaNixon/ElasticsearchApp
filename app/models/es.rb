@@ -8,4 +8,9 @@ module Es
   def client
     @client ||= Elasticsearch::Client.new
   end
+
+  def index_exists?
+    client
+    @client.indices.exists?(index: INDEX_NAME)
+  end
 end
