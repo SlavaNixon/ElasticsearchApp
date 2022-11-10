@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
   before_action :find_article, only: %i[show update edit]
 
   def create
-    id = Articles.new.next_id
+    id = ArticleCollection.new.next_id
     @article = Article.new(
       id,
       params[:name],
@@ -21,13 +21,13 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def index
-    @articles = Articles.new.articles.paginate(page: params[:page])
+    @articles = ArticleCollection.new.articles.paginate(page: params[:page])
   end
 
   def new; end
 
   def search
-    @articles = Articles.search(search_params)
+    @articles = ArticleCollection.search(search_params)
   end
 
   def show; end
@@ -48,7 +48,7 @@ class ArticlesController < ApplicationController
   end
 
   def find_article
-    @article = Articles.new.find(params[:id])
+    @article = ArticleCollection.new.find(params[:id])
     raise ActionController::RoutingError, 'Not Found' if @article.nil?
 
     @article

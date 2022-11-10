@@ -2,7 +2,7 @@
 
 require 'will_paginate/array'
 
-class Articles
+class ArticleCollection
   include ActiveModel::Model
   include Es
   extend Es
@@ -25,7 +25,7 @@ class Articles
   def initialize
     client.indices.create index: INDEX_NAME unless index_exists?
     articles = client.search index: INDEX_NAME, size: 1000
-    @articles = Articles.parse_records(articles)
+    @articles = ArticleCollection.parse_records(articles)
   end
 
   def find(id)
