@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'will_paginate/array'
 
 class Articles
@@ -8,32 +10,36 @@ class Articles
 
   attr_reader :articles
 
-  def initialize
-    articles = client.search index: 'articles', size: 1000
-    @articles = Articles.parse_records(articles)
-  end
-
   def self.search(query)
-    parse_records(Es.client.search(index: "articles", q: query))
+    parse_records(Es.client.search(index: INDEX_NAME, q: query))
   end
 
   def self.parse_records(articles)
-    articles.dig('hits', 'hits').map do |article|
-      params = article.dig('_source').slice('id', 'author', 'name', 'content', 'created_at')
-      Article.new(params['id'], params["name"], params['author'], params["content"], params["created_at"])
+      articles.dig('hits', 'hits').map do |article|
+      params = article['_source'].slice('id', 'author', 'name', 'content', 'created_at')
+      Article.new_from_params(params)
     end
   end
 
+  def initialize
+    client.indices.create index: INDEX_NAME unless client.indices.exists?(index: INDEX_NAME)
+    articles = client.search index: INDEX_NAME, size: 1000
+    @articles = Articles.parse_records(articles)
+  end
+
   def find(id)
-    @articles.find {|article| article.id == id.to_i } if ids.include?(id.to_i)
+    @articles.find { |article| article.id == Integer(id) } if ids.include?(Integer(id))
+  rescue
+    # Ignored
   end
 
   def ids
-    @articles.map(&:id)
+    @articles.map(&:id) if @articles.present?
   end
 
   def next_id
     ids.max + 1
+  rescue
+    0
   end
 end
-

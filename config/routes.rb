@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   resources :articles do
     collection { get :search }
+    collection { get 'page/:page', to: 'articles#index' }
   end
-
-  get 'articles/page/:page', to: 'articles#index'
 end

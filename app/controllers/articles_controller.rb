@@ -1,19 +1,7 @@
+# frozen_string_literal: true
+
 class ArticlesController < ApplicationController
   before_action :find_article, only: %i[show update edit]
-
-  def index
-    @articles = Articles.new.articles.paginate(page: params[:page])
-  end
-
-  def search
-    @articles = Articles.search(search_params)
-  end
-
-  def show; end
-
-  def new; end
-
-  def edit; p @article end
 
   def create
     id = Articles.new.next_id
@@ -25,11 +13,24 @@ class ArticlesController < ApplicationController
       Time.now
     ).create
 
-    # sleep before article create in elastic
-    # need move that in redis
+    # sleep before article creates in elastic
     sleep 1
     redirect_to article_path(id)
   end
+
+  def edit; end
+
+  def index
+    @articles = Articles.new.articles.paginate(page: params[:page])
+  end
+
+  def new; end
+
+  def search
+    @articles = Articles.search(search_params)
+  end
+
+  def show; end
 
   def update
     @article.content = content_params[:content]
@@ -42,17 +43,18 @@ class ArticlesController < ApplicationController
   end
 
   private
-  def find_article
-    @article = Articles.new.find(params[:id])
-    raise ActionController::RoutingError.new('Not Found') if @article.nil?
-    @article
-  end
-  def article_params
-    params.require(:article)
-  end
+
   def content_params
     params.require(:article).permit(:content)
   end
+
+  def find_article
+    @article = Articles.new.find(params[:id])
+    raise ActionController::RoutingError, 'Not Found' if @article.nil?
+
+    @article
+  end
+
   def search_params
     params.require(:q) if params[:q].present?
   end
