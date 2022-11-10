@@ -7,8 +7,6 @@ class ArticleCollection
   include Es
   extend Es
 
-  WillPaginate.per_page = 3
-
   attr_reader :articles
 
   def self.search(query)
@@ -35,7 +33,7 @@ class ArticleCollection
   end
 
   def ids
-    @articles.map(&:id) if @articles.present?
+    @articles.map(&:id)
   end
 
   def next_id

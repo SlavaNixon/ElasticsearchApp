@@ -21,7 +21,7 @@ class ArticlesController < ApplicationController
   def edit; end
 
   def index
-    @articles = ArticleCollection.new.articles.paginate(page: params[:page])
+    @articles = ArticleCollection.new.articles.paginate(page: params[:page], per_page: 3)
   end
 
   def new; end
